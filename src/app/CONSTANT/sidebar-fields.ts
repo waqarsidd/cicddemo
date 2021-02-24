@@ -1,0 +1,148 @@
+export const SIDEBAR_FIELDS: Array<any> = [
+  {
+    label: 'Dashboard',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/dashboard'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Services',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/services'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+
+  {
+    label: 'Contacts',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/contacts'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Accounts',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/accounts'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Users',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/users'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Programs',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/programs-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Service Areas',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/service-areas'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Reports',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/reports-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Jobs',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/jobs-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Billling',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/billing-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Suspension',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/suspension-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Queue',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/queue-management'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['super-admin'],
+  },
+  {
+    label: 'Create Claim',
+    icon: 'pi pi-fw pi-file',
+    routerLink: ['/create-claim'],
+    routerLinkActiveOptions: { exact: true },
+    allowUserAccess: ['customer', 'super-admin'],
+  },
+  {
+    label: 'Role Management',
+    icon: 'pi pi-fw pi-file',
+    allowUserAccess: ['super-admin'],
+    items: [
+      {
+        label: 'Roles',
+        routerLink: ['/roles'],
+        routerLinkActiveOptions: { exact: true },
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Create Role',
+        routerLink: ['/roles/create'],
+        routerLinkActiveOptions: { exact: true },
+        icon: 'pi pi-fw pi-file',
+      },
+    ],
+  },
+
+  {
+    label: 'Apply For Provider',
+    icon: 'pi pi-fw pi-file',
+    allowUserAccess: ['provider'],
+    routerLink: ['/add-provider'],
+    routerLinkActiveOptions: { exact: true },
+  },
+  {
+    label: 'Provider Management',
+    icon: 'pi pi-fw pi-file',
+    allowUserAccess: ['super-admin'],
+    items: [
+      {
+        label: 'Add Provider',
+        routerLink: ['/add-provider'],
+        routerLinkActiveOptions: { exact: true },
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Provider Contacts',
+        // routerLink: ['/admin/roles'],
+        // routerLinkActiveOptions: { exact: true },
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Provider Manager',
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Suspensions',
+        icon: 'pi pi-fw pi-file',
+      },
+    ],
+  },
+];

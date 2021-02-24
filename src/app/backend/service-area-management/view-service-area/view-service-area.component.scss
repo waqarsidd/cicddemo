@@ -1,0 +1,14 @@
+@mixin card {
+  ::ng-deep .p-component {
+    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+}
+
+.card {
+  // height: 220px !important;
+  // width: 300px !important;
+  @include card;
+}

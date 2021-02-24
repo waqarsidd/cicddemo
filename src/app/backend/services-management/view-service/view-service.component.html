@@ -1,0 +1,40 @@
+<p-card styleClass="p-card-shadow">
+  <p-header>
+    <h2>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-text p-button-secondary back-btn"
+      ></button>
+      {{ serviceName }}
+    </h2>
+  </p-header>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      pButton
+      pRipple
+      [label]="'Delete'"
+      class="p-button-danger mr-3"
+    ></button>
+  </div>
+
+  <p-tabView>
+    <p-tabPanel header="Details">
+      <app-service-details></app-service-details>
+    </p-tabPanel>
+    <p-tabPanel header="Jobs">
+      <ng-template pTemplate="content">
+        <app-service-jobs></app-service-jobs>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Activity">
+      <ng-template pTemplate="content">
+        <app-service-activity></app-service-activity>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</p-card>
+<p-toast></p-toast>

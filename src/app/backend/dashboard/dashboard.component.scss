@@ -1,0 +1,31 @@
+@mixin card {
+  ::ng-deep .p-component {
+    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+}
+
+.top-card {
+  height: 220px !important;
+  width: 300px !important;
+  .title {
+    font-size: 4rem;
+  }
+  @include card;
+}
+
+.bill-card {
+  height: 180px !important;
+  width: 360px !important;
+  .title {
+    font-size: 2rem;
+  }
+  @include card;
+}
+
+.graph-card {
+  height: 300px !important;
+  width: 360px !important;
+}

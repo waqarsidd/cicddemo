@@ -1,0 +1,96 @@
+<p-card styleClass="p-card-shadow">
+  <p-header>
+    <h2>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-text p-button-secondary back-btn"
+      ></button>
+      CREATE CLAIM
+    </h2>
+  </p-header>
+
+  <div class="overflow-auto">
+    <p-steps
+      [model]="formFields"
+      (activeIndexChange)="activeIndexChange($event)"
+      [activeIndex]="activeStepIndex"
+      [readonly]="false"
+    >
+    </p-steps>
+  </div>
+
+  <div [ngSwitch]="activeStepIndex" style="margin-top: 10px">
+    <app-claim-caller-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      *ngSwitchCase="0"
+    >
+    </app-claim-caller-information>
+
+    <app-claim-client-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="1"
+    >
+    </app-claim-client-information>
+
+    <app-claim-customer-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="2"
+    >
+    </app-claim-customer-information>
+
+    <app-claim-job-address-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="3"
+    >
+    </app-claim-job-address-information>
+
+    <!-- <app-claim-insurance-information (goNext)="goNext($event)" (goPrevious)="goPrevious($event)" *ngSwitchCase="4">
+        </app-claim-insurance-information> -->
+
+    <app-claim-loss-and-policy-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="4"
+    >
+    </app-claim-loss-and-policy-information>
+
+    <app-claim-policy-information
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="5"
+    >
+    </app-claim-policy-information>
+
+    <app-claim-required-services
+      [claimFieldsValue]="claimFieldsValue"
+      (goNext)="goNext($event)"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="6"
+    >
+    </app-claim-required-services>
+
+    <!-- <app-claim-payment-services [claimFieldsValue]="claimFieldsValue" (goNext)="goNext($event)"
+            (goPrevious)="goPrevious($event)" *ngSwitchCase="7">
+        </app-claim-payment-services> -->
+
+    <app-claim-loss-description-and-speical-instructions
+      [claimFieldsValue]="claimFieldsValue"
+      (goPrevious)="goPrevious($event)"
+      *ngSwitchCase="7"
+    >
+    </app-claim-loss-description-and-speical-instructions>
+  </div>
+</p-card>
+<p-toast position="bottom-center"></p-toast>

@@ -1,0 +1,104 @@
+<p-toast position="bottom-center"></p-toast>
+<div class="h-100 w-100 overflow-auto">
+  <div class="w-80 p-3">
+    <!-- Top Cards -->
+    <div class="d-flex justify-content-between p-3">
+      <p-card class="top-card">
+        <ng-template pTemplate="header">
+          <div class="text-center">
+            <i class="pi pi-compass title"></i>
+          </div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>Network Health</div>
+          <div>57% Up | 25% Suspended | 18% Down</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+
+      <p-card class="top-card flex-column d-flex justify-content-between">
+        <ng-template pTemplate="header">
+          <div class="text-center title">50</div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>New Claims Today</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+
+      <p-card class="top-card">
+        <ng-template pTemplate="header">
+          <div class="text-center title">1529</div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>Claims closed this year</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+    </div>
+
+    <!-- Bill Cards -->
+    <div class="d-flex justify-content-between p-3">
+      <p-card class="bill-card">
+        <ng-template pTemplate="header">
+          <div class="text-center title">$12,569,536</div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>Billed this month</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+      <p-card class="bill-card">
+        <ng-template pTemplate="header">
+          <div class="text-center title">$124,569,536</div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>Billed this YTD</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+      <p-card class="bill-card">
+        <ng-template pTemplate="header">
+          <div class="text-center title">267</div>
+        </ng-template>
+        <div class="font-weight-normal text-center">
+          <div>Claims Un-Serviced YTD</div>
+        </div>
+        <ng-template pTemplate="footer"> </ng-template>
+      </p-card>
+    </div>
+
+    <!-- Graph cards -->
+    <div class="d-flex justify-content-between p-3 mt-3">
+      <div class="graph-card">
+        <p-chart
+          type="horizontalBar"
+          [options]="options.horizontalBar"
+          height="100%"
+          width="100%"
+          [data]="horizontalBar"
+        ></p-chart>
+      </div>
+
+      <div class="graph-card">
+        <p-chart
+          type="bar"
+          [options]="options.bar"
+          height="100%"
+          width="100%"
+          [data]="bar"
+        ></p-chart>
+      </div>
+
+      <div class="graph-card">
+        <p-chart
+          type="line"
+          [options]="options.line"
+          height="100%"
+          width="100%"
+          [data]="line"
+        ></p-chart>
+      </div>
+    </div>
+  </div>
+</div>

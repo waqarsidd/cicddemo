@@ -1,0 +1,14 @@
+<p-sidebar
+  [(visible)]="toggleSidebar"
+  position="left"
+  [style]="{ width: '17em' }"
+  [modal]="'false'"
+  (onHide)="onHide()"
+>
+  <div class="sidebar-top">
+    <div class="text-center">
+      <img class="logo" src="/assets/images/CORE_LOGO_FINAL.png" alt="Logo" />
+    </div>
+  </div>
+  <p-panelMenu [model]="items"></p-panelMenu>
+</p-sidebar>

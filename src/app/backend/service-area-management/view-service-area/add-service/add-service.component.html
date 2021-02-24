@@ -1,0 +1,27 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="h-100 w-100 flex-column d-flex align-items-stretch">
+  <div style="flex: 1">
+    <p-pickList
+      [source]="sourceServices"
+      [target]="targetServices"
+      sourceHeader="Available"
+      targetHeader="Selected"
+      [dragdrop]="true"
+      [responsive]="true"
+    >
+      <ng-template let-service pTemplate="item">
+        <div class="font-weight-normal">{{ service }}</div>
+      </ng-template>
+    </p-pickList>
+  </div>
+  <div class="d-flex flex-row justify-content-end py-2">
+    <button
+      pButton
+      pRipple
+      [label]="'Update'"
+      class="p-button-primary mr-3"
+      (click)="update()"
+    ></button>
+  </div>
+</div>

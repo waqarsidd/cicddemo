@@ -1,0 +1,13 @@
+<div class="h-100 w-100" style="display: flex">
+  <app-sidebar
+    [toggleSidebar]="toggleSidebar"
+    (toggleHideSidebar)="toggleHideSidebar()"
+  ></app-sidebar>
+  <div class="h-100 w-100 flex-column d-flex align-items-stretch">
+    <app-header (toggleHideSidebar)="toggleHideSidebar()"></app-header>
+    <div style="height: calc(100% - 74.2px)">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

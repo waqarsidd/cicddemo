@@ -1,0 +1,202 @@
+<p-card styleClass="p-card-shadow">
+  <p-header>
+    <h2>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-text p-button-secondary back-btn"
+      ></button>
+      APPLY FOR PROVIDER
+    </h2>
+  </p-header>
+
+  <div class="overflow-auto">
+    <p-steps
+      [model]="tabs"
+      (activeIndexChange)="changeTab($event)"
+      [activeIndex]="activeTabIndex"
+      [readonly]="false"
+    >
+    </p-steps>
+  </div>
+
+  <p-card [header]="''" [subheader]="" styleClass="p-card-shadow">
+    <form *ngIf="isFormLoaded" [formGroup]="formGroup" (ngSubmit)="submit()">
+      <div
+        class="form-group d-flex flex-row bd-highlight justify-content-between flex-wrap"
+      >
+        <div *ngFor="let field of fields" class="col col-lg-5 col-sm-10">
+          <div [ngSwitch]="field.type" class="p-field">
+            <div class="p-float-label">
+              <input
+                *ngSwitchCase="'text'"
+                [id]="field.field"
+                type="text"
+                pInputText
+                class="p-inputtext-lg p-inputtext p-component"
+                [formControlName]="field.field"
+              />
+
+              <input
+                *ngSwitchCase="'number'"
+                [id]="field.field"
+                type="number"
+                pInputText
+                [formControlName]="field.field"
+                class="p-inputtext-lg p-inputtext p-component"
+              />
+
+              <input
+                *ngSwitchCase="'email'"
+                [id]="field.field"
+                type="email"
+                pInputText
+                class="p-inputtext-lg p-inputtext p-component"
+                [formControlName]="field.field"
+              />
+
+              <input
+                *ngSwitchCase="'password'"
+                [id]="field.field"
+                type="password"
+                pInputText
+                class="p-inputtext-lg p-inputtext p-component"
+                [formControlName]="field.field"
+              />
+
+              <textarea
+                *ngSwitchCase="'textarea'"
+                pInputTextarea
+                [id]="field.field"
+                [formControlName]="field.field"
+              ></textarea>
+
+              <!-- <p-dropdown [id]="field.field" [options]="field.options" [formControlName]="field.field">
+                            </p-dropdown> -->
+
+              <p-dropdown
+                *ngSwitchCase="'dropdown'"
+              optionDisabled="disabled"
+                [options]="field.options"
+                [formControlName]="field.field"
+                [showClear]="true"
+                [inputId]="field.field"
+                [autoDisplayFirst]="false"
+              >
+                <ng-template let-option pTemplate="option">
+                  <div>{{ option.label }}</div>
+                </ng-template>
+              </p-dropdown>
+
+              <p-calendar
+                *ngSwitchCase="'date'"
+                [id]="field.field"
+                [formControlName]="field.field"
+              >
+              </p-calendar>
+
+              <div *ngSwitchCase="'radio'">
+                <div
+                  *ngFor="let option of field.options"
+                  class="p-field-radiobutton"
+                >
+                  <p-radioButton
+                    [value]="option.value"
+                    [formControlName]="field.field"
+                    [inputId]="option.value"
+                  >
+                  </p-radioButton>
+                  <label [for]="option.value">{{ option.label }}</label>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'checkbox'" class="p-field-checkbox">
+                <p-checkbox
+                  [formControlName]="field.field"
+                  [inputId]="field.field"
+                  class="mr-2"
+                >
+                </p-checkbox>
+                <label [for]="field.field">{{ field.label }}</label>
+              </div>
+
+              <label
+                *ngIf="field.type !== 'checkbox' && field.type !== 'radio'"
+                [for]="field.field"
+                >{{ field.label }}</label
+              >
+
+              <small
+                *ngIf="
+                  formGroup.get(field.field).hasError('required') &&
+                  isFormSubmitted
+                "
+                class="p-invalid"
+              >
+                {{ field.label }} is required
+              </small>
+              <small
+                *ngIf="
+                  formGroup.get(field.field).hasError('invalidEmailAddress') &&
+                  isFormSubmitted &&
+                  !formGroup.get(field.field).hasError('required')
+                "
+                class="p-invalid"
+              >
+                Please provide valid {{ field.label }}
+              </small>
+              <small *ngFor="let error of field.errors" class="p-invalid">
+                {{ error }}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p-footer>
+        <div class="d-flex justify-content-end">
+          <button
+            pButton
+            *ngIf="activeTabIndex === 0"
+            pRipple
+            type="button"
+            label="Cancel"
+            routerLink="../../"
+            class="p-button-raised p-button-secondary btn-margin"
+          ></button>
+
+          <button
+            pButton
+            *ngIf="activeTabIndex > 0"
+            pRipple
+            type="button"
+            label="Previous"
+            class="p-button-raised p-button-secondary btn-margin"
+            (click)="changeTab(this.activeTabIndex - 1)"
+          ></button>
+
+          <button
+            pButton
+            *ngIf="activeTabIndex < tabs.length - 1"
+            pRipple
+            (click)="changeTab(this.activeTabIndex + 1)"
+            label="Save and Next"
+            class="p-button-raised"
+          ></button>
+
+          <button
+            pButton
+            *ngIf="activeTabIndex == tabs.length - 1"
+            pRipple
+            type="submit"
+            label="Submit"
+            class="p-button-raised"
+          ></button>
+        </div>
+      </p-footer>
+    </form>
+  </p-card>
+</p-card>
+<p-toast></p-toast>

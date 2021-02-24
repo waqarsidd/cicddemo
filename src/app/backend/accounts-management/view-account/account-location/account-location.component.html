@@ -1,0 +1,692 @@
+<p-tabView>
+  <p-tabPanel header="Contact Information">
+    <ng-template pTemplate="content">
+      <form [formGroup]="contactFormGroup" (ngSubmit)="onSubmit()">
+        <div
+          class="form-group d-flex flex-row bd-highlight justify-content-between flex-wrap"
+        >
+          <div
+            *ngFor="let field of contactFormFields"
+            class="col col-lg-5 col-sm-10"
+          >
+            <div [ngSwitch]="field.type" class="p-field">
+              <div *ngSwitchCase="'text'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="text"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'number'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="number"
+                  pInputText
+                  [formControlName]="field.field"
+                  class="p-inputtext-lg p-inputtext p-component"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'email'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="email"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small
+                  *ngIf="
+                    contactFormGroup
+                      .get(field.field)
+                      .hasError('invalidEmailAddress') &&
+                    isFormSubmitted &&
+                    !contactFormGroup.get(field.field).hasError('required')
+                  "
+                  class="p-invalid"
+                >
+                  Please provide valid {{ field.label }}
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'textarea'" class="p-float-label">
+                <textarea
+                  pInputTextarea
+                  [id]="field.field"
+                  [formControlName]="field.field"
+                ></textarea>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'dropdown'" class="p-float-label">
+                <p-dropdown
+                  optionDisabled="disabled"
+                  [options]="field.options"
+                  [formControlName]="field.field"
+                  [showClear]="true"
+                  (onClick)="onDropdownFieldFocus(field)"
+                  [inputId]="field.field"
+                  [autoDisplayFirst]="false"
+                >
+                  <ng-template let-option pTemplate="option">
+                    <div>
+                      {{ option.label }}
+                      <i
+                        *ngIf="field.isReqPending"
+                        class="pi pi-spin pi-spinner"
+                      ></i>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'date'" class="p-float-label">
+                <p-calendar [id]="field.field" [formControlName]="field.field">
+                </p-calendar>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'radio'">
+                <div
+                  *ngFor="let option of field.options"
+                  class="p-field-radiobutton"
+                >
+                  <p-radioButton
+                    [value]="option.value"
+                    [formControlName]="field.field"
+                    [inputId]="option.value"
+                  >
+                  </p-radioButton>
+                  <label [for]="option.value">{{ option.label }}</label>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'checkbox'">
+                <p-checkbox
+                  [formControlName]="field.field"
+                  [inputId]="field.field"
+                  class="mr-2"
+                >
+                </p-checkbox>
+                <label [for]="field.field" style="margin: 0 0 0 5px">{{
+                  field.label
+                }}</label>
+                <small
+                  *ngIf="
+                    contactFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end">
+              <!-- <button
+                pButton
+                pRipple
+                type="button"
+                label="Previous"
+                (click)="goPrevious.emit()"
+                class="p-button-raised p-button-secondary btn-margin"
+              ></button>
+              <button
+                pButton
+                pRipple
+                type="submit"
+                label="Save and Next"
+                class="p-button-raised"
+              ></button> -->
+            </div>
+          </div>
+        </p-footer>
+      </form>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Address Information">
+    <ng-template pTemplate="content">
+      <form [formGroup]="addressFormGroup" (ngSubmit)="onSubmit()">
+        <div
+          class="form-group d-flex flex-row bd-highlight justify-content-between flex-wrap"
+        >
+          <div
+            *ngFor="let field of addressFormFields"
+            class="col col-lg-5 col-sm-10"
+          >
+            <div [ngSwitch]="field.type" class="p-field">
+              <div *ngSwitchCase="'text'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="text"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'number'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="number"
+                  pInputText
+                  [formControlName]="field.field"
+                  class="p-inputtext-lg p-inputtext p-component"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'email'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="email"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small
+                  *ngIf="
+                    addressFormGroup
+                      .get(field.field)
+                      .hasError('invalidEmailAddress') &&
+                    isFormSubmitted &&
+                    !addressFormGroup.get(field.field).hasError('required')
+                  "
+                  class="p-invalid"
+                >
+                  Please provide valid {{ field.label }}
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'textarea'" class="p-float-label">
+                <textarea
+                  pInputTextarea
+                  [id]="field.field"
+                  [formControlName]="field.field"
+                ></textarea>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'dropdown'" class="p-float-label">
+                <p-dropdown
+                  optionDisabled="disabled"
+                  [options]="field.options"
+                  [formControlName]="field.field"
+                  [showClear]="true"
+                  (onClick)="onDropdownFieldFocus(field)"
+                  [inputId]="field.field"
+                  [autoDisplayFirst]="false"
+                >
+                  <ng-template let-option pTemplate="option">
+                    <div>
+                      {{ option.label }}
+                      <i
+                        *ngIf="field.isReqPending"
+                        class="pi pi-spin pi-spinner"
+                      ></i>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'date'" class="p-float-label">
+                <p-calendar [id]="field.field" [formControlName]="field.field">
+                </p-calendar>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'radio'">
+                <div
+                  *ngFor="let option of field.options"
+                  class="p-field-radiobutton"
+                >
+                  <p-radioButton
+                    [value]="option.value"
+                    [formControlName]="field.field"
+                    [inputId]="option.value"
+                  >
+                  </p-radioButton>
+                  <label [for]="option.value">{{ option.label }}</label>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'checkbox'">
+                <p-checkbox
+                  [formControlName]="field.field"
+                  [inputId]="field.field"
+                  class="mr-2"
+                >
+                </p-checkbox>
+                <label [for]="field.field" style="margin: 0 0 0 5px">{{
+                  field.label
+                }}</label>
+                <small
+                  *ngIf="
+                    addressFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end">
+              <!-- <button
+                pButton
+                pRipple
+                type="button"
+                label="Previous"
+                (click)="goPrevious.emit()"
+                class="p-button-raised p-button-secondary btn-margin"
+              ></button>
+              <button
+                pButton
+                pRipple
+                type="submit"
+                label="Save and Next"
+                class="p-button-raised"
+              ></button> -->
+            </div>
+          </div>
+        </p-footer>
+      </form>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="Location Information">
+    <ng-template pTemplate="content">
+      <form [formGroup]="locationFormGroup" (ngSubmit)="onSubmit()">
+        <div
+          class="form-group d-flex flex-row bd-highlight justify-content-between flex-wrap"
+        >
+          <div
+            *ngFor="let field of locationFormFields"
+            class="col col-lg-5 col-sm-10"
+          >
+            <div [ngSwitch]="field.type" class="p-field">
+              <div *ngSwitchCase="'text'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="text"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'number'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="number"
+                  pInputText
+                  [formControlName]="field.field"
+                  class="p-inputtext-lg p-inputtext p-component"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'email'" class="p-float-label">
+                <input
+                  [id]="field.field"
+                  type="email"
+                  pInputText
+                  class="p-inputtext-lg p-inputtext p-component"
+                  [formControlName]="field.field"
+                />
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small
+                  *ngIf="
+                    locationFormGroup
+                      .get(field.field)
+                      .hasError('invalidEmailAddress') &&
+                    isFormSubmitted &&
+                    !locationFormGroup.get(field.field).hasError('required')
+                  "
+                  class="p-invalid"
+                >
+                  Please provide valid {{ field.label }}
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'textarea'" class="p-float-label">
+                <textarea
+                  pInputTextarea
+                  [id]="field.field"
+                  [formControlName]="field.field"
+                ></textarea>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'dropdown'" class="p-float-label">
+                <p-dropdown
+                  optionDisabled="disabled"
+                  [options]="field.options"
+                  [formControlName]="field.field"
+                  [showClear]="true"
+                  (onClick)="onDropdownFieldFocus(field)"
+                  [inputId]="field.field"
+                  [autoDisplayFirst]="false"
+                >
+                  <ng-template let-option pTemplate="option">
+                    <div>
+                      {{ option.label }}
+                      <i
+                        *ngIf="field.isReqPending"
+                        class="pi pi-spin pi-spinner"
+                      ></i>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'date'" class="p-float-label">
+                <p-calendar [id]="field.field" [formControlName]="field.field">
+                </p-calendar>
+                <label [for]="field.field">{{ field.label }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div *ngSwitchCase="'radio'">
+                <div
+                  *ngFor="let option of field.options"
+                  class="p-field-radiobutton"
+                >
+                  <p-radioButton
+                    [value]="option.value"
+                    [formControlName]="field.field"
+                    [inputId]="option.value"
+                  >
+                  </p-radioButton>
+                  <label [for]="option.value">{{ option.label }}</label>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'checkbox'">
+                <p-checkbox
+                  [formControlName]="field.field"
+                  [inputId]="field.field"
+                  class="mr-2"
+                >
+                </p-checkbox>
+                <label [for]="field.field" style="margin: 0 0 0 5px">{{
+                  field.label
+                }}</label>
+                <small
+                  *ngIf="
+                    locationFormGroup.get(field.field).hasError('required') &&
+                    isFormSubmitted
+                  "
+                  class="p-invalid"
+                >
+                  {{ field.label }} is required
+                </small>
+                <small *ngFor="let error of field.errors" class="p-invalid">
+                  {{ error }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end">
+              <!-- <button
+                pButton
+                pRipple
+                type="button"
+                label="Previous"
+                (click)="goPrevious.emit()"
+                class="p-button-raised p-button-secondary btn-margin"
+              ></button>
+              <button
+                pButton
+                pRipple
+                type="submit"
+                label="Save and Next"
+                class="p-button-raised"
+              ></button> -->
+            </div>
+          </div>
+        </p-footer>
+      </form>
+    </ng-template>
+  </p-tabPanel>
+
+  <p-tabPanel header="Addresses">
+     </p-tabPanel>
+</p-tabView>

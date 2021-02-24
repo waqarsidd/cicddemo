@@ -1,0 +1,68 @@
+<p-card styleClass="p-card-shadow">
+  <p-header>
+    <h2>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-text p-button-secondary back-btn"
+        routerLink="../../"
+      ></button>
+      {{ accountName }}
+    </h2>
+  </p-header>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      pButton
+      pRipple
+      [label]="'Delete'"
+      class="p-button-danger mr-3"
+    ></button>
+  </div>
+
+  <p-tabView>
+    <p-tabPanel header="Jobs">
+      <ng-template pTemplate="content">
+        <app-account-jobs></app-account-jobs>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Service Area">
+      <ng-template pTemplate="content">
+        <app-account-service-area></app-account-service-area>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Contacts">
+      <ng-template pTemplate="content">
+        <app-account-contacts></app-account-contacts>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Location">
+      <ng-template pTemplate="content">
+        <app-account-location></app-account-location>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Suspensions">
+      <ng-template pTemplate="content">
+        <app-account-suspensions></app-account-suspensions>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Reviews">
+      <ng-template pTemplate="content">
+        <app-service-jobs></app-service-jobs>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Ratings">
+      <ng-template pTemplate="content">
+        <app-service-jobs></app-service-jobs>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Billing">
+      <ng-template pTemplate="content">
+        <app-service-jobs></app-service-jobs>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
+</p-card>
+<p-toast></p-toast>

@@ -1,0 +1,88 @@
+<p-toast position="bottom-center"></p-toast>
+<app-baseline>
+  <div body>
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success p-mr-2 btn-margin"
+            (click)="openNew()"
+          ></button>
+          <!-- <button pButton pRipple [label]="'Delete'" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedRoles()" [disabled]="!selectedRoles || !selectedRoles.length"></button> -->
+        </ng-template>
+      </p-toolbar>
+
+      <p-table
+        #dt
+        [value]="roles"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['role', 'description']"
+        [(selection)]="selectedRoles"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+      >
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            <h5 class="p-m-0">Manage Roles</h5>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search..."
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="role">
+              Role <p-sortIcon field="role"></p-sortIcon>
+            </th>
+            <th pSortableColumn="description">
+              Description <p-sortIcon field="description"></p-sortIcon>
+            </th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-role>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="role"></p-tableCheckbox>
+            </td>
+            <td>{{ role.role }}</td>
+            <td>{{ role.description }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success p-mr-2 btn-margin"
+                (click)="editRole(role)"
+              ></button>
+              <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteRole(role)"></button> -->
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            In total there are {{ roles ? roles.length : 0 }} Roles.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</app-baseline>

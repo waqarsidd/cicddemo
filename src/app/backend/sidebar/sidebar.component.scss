@@ -1,0 +1,11 @@
+.logo {
+  width: 140px !important;
+  margin: 20px;
+}
+
+:host ::ng-deep p-panelMenu {
+  .p-panelmenu {
+    height: 70vh !important;
+    overflow: scroll !important;
+  }
+}
